@@ -1,0 +1,44 @@
+:host {
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.input-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.url-list-container {
+  width: 100%;
+}
+
+.url-table {
+  width: 100%;
+  background-color: var(--mat-sys-surface-container-highest);
+}
+
+.url-list-title {
+  text-align: center;
+}
+
+.mat-column-createdAt {
+  max-width: 200px;
+}
+
+@media (max-width: 820px) {
+  .mat-column-createdAt {
+    display: none;
+  }
+}

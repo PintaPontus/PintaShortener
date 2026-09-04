@@ -1,20 +1,15 @@
 import { Routes } from '@angular/router';
-import { Record } from './record/record';
 import { Redirect } from './redirect/redirect';
+import { Dashboard } from './dashboard/dashboard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'record',
-    pathMatch: 'full',
-  },
-  {
-    path: 'record',
-    component: Record,
+    component: Dashboard,
   },
   {
     path: 'go/:id',
     component: Redirect,
   },
-  { path: '**', redirectTo: 'record' },
+  { path: '**', redirectTo: '' },
 ];

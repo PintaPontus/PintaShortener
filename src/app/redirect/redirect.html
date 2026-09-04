@@ -1,2 +1,9 @@
-<app-logo></app-logo>
-<div>REDIRECT</div>
+<h1>Verrai reindirizzato tra {{ secondsLeft() }} secondi a:</h1>
+<h3>{{ url.value()?.link }}</h3>
+@if (secondsLeft() === 0) {
+  <h2>Se non vieni reindirizzato premi qui</h2>
+  <button (click)="doRedirect()" matButton="outlined">REINDIRIZZA</button>
+} @else {
+  <mat-spinner></mat-spinner>
+}
+

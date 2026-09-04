@@ -1,9 +1,9 @@
-import {Component, inject, Signal} from '@angular/core';
-import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {User} from '@firebase/auth';
-import {FirebaseService} from '../firebase.service';
-import {MatTooltip} from '@angular/material/tooltip';
-import {MatToolbar} from '@angular/material/toolbar';
+import { Component, inject, Signal } from '@angular/core';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { User } from '@firebase/auth';
+import { FirebaseService } from '../firebase.service';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatToolbar } from '@angular/material/toolbar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Logo } from '../logo/logo';
 
@@ -17,7 +17,7 @@ export class Toolbar {
   private readonly firebaseService = inject(FirebaseService);
   user: Signal<User | undefined> = this.firebaseService.getUserSessionDetails();
   isLogged: Signal<boolean> = this.firebaseService.isLogged;
-  private snackBar = inject(MatSnackBar);
+  private readonly snackBar = inject(MatSnackBar);
 
   async loginWithGoogle() {
     try {
