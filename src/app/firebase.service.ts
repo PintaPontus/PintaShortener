@@ -36,7 +36,6 @@ export class FirebaseService {
   private readonly db = getFirestore(this.app);
 
   private readonly userSessionDetails = signal<User | undefined>(undefined);
-  readonly isLogged = computed(() => !!this.userSessionDetails());
   private readonly userInfosDetails = resource({
     params: () => {
       const userUID = this.userSessionDetails()?.uid;
@@ -50,24 +49,13 @@ export class FirebaseService {
     },
     defaultValue: undefined,
   });
+
+  readonly isLogged = computed(() => !!this.userSessionDetails());
   readonly isAdmin = computed(() => this.userInfosDetails.value()?.role === 'admin');
 
   constructor() {
     // noinspection JSIgnoredPromiseFromCall
     this.initAuth();
-  }
-
-  async loginWithGoogle() {
-    await signInWithPopup(this.auth, new GoogleAuthProvider());
-  }
-
-  async logout() {
-    await signOut(this.auth);
-    this.userSessionDetails.set(undefined);
-  }
-
-  getUserInfosDetails() {
-    return this.userInfosDetails.value;
   }
 
   async recordUrl(link: string) {
@@ -76,11 +64,8 @@ export class FirebaseService {
       createdAt: new Date(),
       link: link,
     };
-    await addDoc(collection(this.db, 'urls'), newUrl);
-  }
-
-  getUserSessionDetails() {
-    return this.userSessionDetails.asReadonly();
+    const docRef = await addDoc(collection(this.db, 'urls'), newUrl);
+    return docRef.id;
   }
 
   async getUserUrlsList() {
@@ -100,6 +85,23 @@ export class FirebaseService {
         id: doc.id,
       };
     });
+  }
+
+  async loginWithGoogle() {
+    await signInWithPopup(this.auth, new GoogleAuthProvider());
+  }
+
+  async logout() {
+    await signOut(this.auth);
+    this.userSessionDetails.set(undefined);
+  }
+
+  getUserInfosDetails() {
+    return this.userInfosDetails.value;
+  }
+
+  getUserSessionDetails() {
+    return this.userSessionDetails.asReadonly();
   }
 
   // ============

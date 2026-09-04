@@ -22,11 +22,12 @@ import { MatButton } from '@angular/material/button';
   templateUrl: './redirect.html',
 })
 export class Redirect {
-  readonly secondsLeft = signal(5);
   private readonly destroyRef = inject(DestroyRef);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  readonly secondsLeft = signal(5);
   private readonly routeParamMap = toSignal(this.route.paramMap);
+
   private readonly urlId = computed(() => this.routeParamMap()?.get('id') || undefined);
   private readonly firebaseService = inject(FirebaseService);
   url: ResourceRef<UrlDetails | undefined> = resource({
@@ -39,7 +40,7 @@ export class Redirect {
     const id = setInterval(() => {
       this.secondsLeft.update((s) => Math.max(0, s - 1));
       if (this.secondsLeft() === 0) {
-        // this.doRedirect();
+        this.doRedirect();
         clearInterval(id);
       }
     }, 1000);

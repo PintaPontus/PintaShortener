@@ -3,24 +3,40 @@
     <mat-label>Url To Shorten</mat-label>
     <input [(ngModel)]="urlInput" matInput placeholder="https://to-shorten.url">
   </mat-form-field>
-  <button (click)="recordUrl()" matButton="outlined">REGISTRA</button>
+  <button (click)="recordUrl()" matButton="outlined">GENERA</button>
 </div>
-<div class="url-list-container">
-  <h2 class="url-list-title">URL più recenti:</h2>
-  <mat-table [dataSource]="userUrlsList.value()" class="url-table">
-    <ng-container matColumnDef="link">
-      <mat-header-cell *matHeaderCellDef> URL</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <a [href]="element.link">{{ element.link }}</a>
-      </mat-cell>
-    </ng-container>
+@if (generatedURL()) {
+  <h1>URL Generato:
+    <button (click)="copyExactLink(generatedURL())" matButton>{{ generatedURL() }}</button>
+  </h1>
+}
+@if (firebaseService.isLogged()) {
+  <div class="url-list-container">
+    <h2 class="url-list-title">URL più recenti:</h2>
+    <mat-table [dataSource]="userUrlsList.value()" class="url-table">
+      <ng-container matColumnDef="link">
+        <mat-header-cell *matHeaderCellDef>URL</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <a [href]="element.link">{{ element.link }}</a>
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="createdAt">
-      <mat-header-cell *matHeaderCellDef> Data Creazione</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element.createdAt.toMillis() | date: 'dd/MM/yyyy HH:mm' }}</mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="shortened">
+        <mat-header-cell *matHeaderCellDef>Shortened URL</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button (click)="copyLink(element.id)" [matTooltip]="element.link"
+                  matButton>{{ getShortenedUrl(element.id) }}
+          </button>
+        </mat-cell>
+      </ng-container>
 
-    <mat-header-row *matHeaderRowDef="userUrlsListColumns; sticky: true"></mat-header-row>
-    <mat-row *matRowDef="let _; columns: userUrlsListColumns;"></mat-row>
-  </mat-table>
-</div>
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef>Data Creazione</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.createdAt.toMillis() | date: 'dd/MM/yyyy HH:mm' }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="userUrlsListColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let _; columns: userUrlsListColumns;"></mat-row>
+    </mat-table>
+  </div>
+}

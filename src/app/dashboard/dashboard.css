@@ -33,11 +33,22 @@
   text-align: center;
 }
 
+.mat-column-shortened {
+  max-width: 400px;
+}
+
 .mat-column-createdAt {
   max-width: 200px;
 }
 
 @media (max-width: 820px) {
+  .mat-column-link {
+    display: none;
+  }
+
+  .mat-column-shortened {
+    max-width: unset;
+  }
   .mat-column-createdAt {
     display: none;
   }

@@ -8,7 +8,7 @@ export const routes: Routes = [
     component: Dashboard,
   },
   {
-    path: 'go/:id',
+    path: ':id',
     component: Redirect,
   },
   { path: '**', redirectTo: '' },
