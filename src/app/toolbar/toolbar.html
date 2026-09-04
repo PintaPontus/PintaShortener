@@ -1,0 +1,24 @@
+<mat-toolbar class="toolbar" color="primary">
+  <app-logo></app-logo>
+  <span class="actions-box">
+    @if (!isLogged()) {
+      <button [matMenuTriggerFor]="userLoginMenu" class="action material-symbols-outlined">login</button>
+      <mat-menu #userLoginMenu="matMenu">
+        <button mat-menu-item (click)="loginWithGoogle()">Login with Google</button>
+      </mat-menu>
+    } @else {
+      @if (user()?.photoURL) {
+        <div [matTooltip]="user()?.displayName" [matMenuTriggerFor]="loggedUserMenu" class="action user-pic-container">
+          <img [src]="user()?.photoURL" alt="" class="user-pic">
+        </div>
+      } @else {
+        <button [matTooltip]="user()?.displayName" [matMenuTriggerFor]="loggedUserMenu"
+                class="action material-symbols-outlined">person</button>
+      }
+      <mat-menu #loggedUserMenu="matMenu">
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+    }
+  </span>
+</mat-toolbar>
+
