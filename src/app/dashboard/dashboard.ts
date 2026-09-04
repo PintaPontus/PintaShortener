@@ -58,6 +58,9 @@ export class Dashboard {
 
   async recordUrl() {
     if (!this.firebaseService.isLogged()) {
+      this.snackBar.open('Per generare link è necessario effettuare il login', 'OK', {
+        duration: 2000,
+      });
       return;
     }
     const id = await this.firebaseService.recordUrl(this.urlInput().trim());
