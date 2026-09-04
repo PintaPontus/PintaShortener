@@ -1,8 +1,7 @@
 <h1>Verrai reindirizzato tra {{ secondsLeft() }} secondi a:</h1>
-<h3>{{ url.value()?.link }}</h3>
+<h2>{{ url.value()?.link }}</h2>
 @if (secondsLeft() === 0) {
-  <h2>Se non vieni reindirizzato premi qui</h2>
-  <button (click)="doRedirect()" matButton="outlined">VAI</button>
+  <h1>Se non vieni reindirizzato premi <a [href]="this.url.value()?.link" matButton="outlined">VAI</a></h1>
 } @else {
   <mat-spinner></mat-spinner>
 }
