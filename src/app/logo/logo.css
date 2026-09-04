@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-ref {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logo-title {
+  /*font-size: 1.75rem;*/
+}
+
+.logo {
+  /*max-height: 3rem;*/
+}
